@@ -6,3 +6,158 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model bairro {
+  id       Int        @id @default(autoincrement())
+  nome     String     @db.VarChar(45)
+  endereco endereco[]
+}
+
+model cidade {
+  id                Int               @id @default(autoincrement())
+  nome              String            @db.VarChar(45)
+  sigla_uf          String            @db.VarChar(10)
+  unidade_federacao unidade_federacao @relation(fields: [sigla_uf], references: [sigla], onDelete: NoAction, onUpdate: NoAction, map: "fk_cidade_unidade_federacao1")
+  endereco          endereco[]
+
+  @@index([sigla_uf], map: "fk_cidade_unidade_federacao1_idx")
+}
+
+model cliente {
+  id                   String    @id @db.VarChar(56)
+  nome                 String    @db.VarChar(45)
+  sobrenome            String    @db.VarChar(45)
+  email                String    @db.VarChar(255)
+  ddi_telefone         String?   @default("55") @db.VarChar(5)
+  num_telefone         String?   @db.VarChar(20)
+  id_genero            Int
+  id_raca              Int
+  id_endereco          Int
+  numero_endereco      Int
+  complemento_endereco String?   @db.VarChar(45)
+  endereco             endereco  @relation(fields: [id_endereco], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profissional_endereco10")
+  genero               genero    @relation(fields: [id_genero], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profissional_genero10")
+  raca                 raca      @relation(fields: [id_raca], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profissional_raca10")
+  projeto              projeto[]
+
+  @@index([id_endereco], map: "fk_profissional_endereco1_idx")
+  @@index([id_genero], map: "fk_profissional_genero1_idx")
+  @@index([id_raca], map: "fk_profissional_raca1_idx")
+}
+
+model endereco {
+  id            Int            @id @default(autoincrement())
+  cep           String         @db.VarChar(8)
+  id_logradouro Int
+  id_bairro     Int
+  id_cidade     Int
+  cliente       cliente[]
+  bairro        bairro         @relation(fields: [id_bairro], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_endereco_bairro1")
+  cidade        cidade         @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_endereco_cidade1")
+  logradouro    logradouro     @relation(fields: [id_logradouro], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_endereco_logradouro1")
+  profissional  profissional[]
+
+  @@index([id_bairro], map: "fk_endereco_bairro1_idx")
+  @@index([id_cidade], map: "fk_endereco_cidade1_idx")
+  @@index([id_logradouro], map: "fk_endereco_logradouro1_idx")
+}
+
+model especialidade {
+  id           Int            @id @default(autoincrement())
+  nome         String         @db.VarChar(45)
+  profissional profissional[]
+}
+
+model genero {
+  id            Int            @id @default(autoincrement())
+  identificacao String         @db.VarChar(45)
+  cliente       cliente[]
+  profissional  profissional[]
+}
+
+model logradouro {
+  id                    Int             @id @default(autoincrement())
+  nome                  String          @db.VarChar(45)
+  sigla_tipo_logradouro String          @db.VarChar(10)
+  endereco              endereco[]
+  tipo_logradouro       tipo_logradouro @relation(fields: [sigla_tipo_logradouro], references: [sigla], onDelete: NoAction, onUpdate: NoAction, map: "fk_logradouro_tipo_logradouro1")
+
+  @@index([sigla_tipo_logradouro], map: "fk_logradouro_tipo_logradouro1_idx")
+}
+
+model profissional {
+  id                    String                  @id @db.VarChar(56)
+  nome                  String                  @db.VarChar(45)
+  sobrenome             String                  @db.VarChar(45)
+  email                 String                  @db.VarChar(255)
+  ddi_telefone          String?                 @default("55") @db.VarChar(5)
+  num_telefone          String?                 @db.VarChar(20)
+  id_genero             Int
+  id_raca               Int
+  id_especialidade      Int
+  id_endereco           Int
+  numero_endereco       Int
+  complemento_endereco  String?                 @db.VarChar(45)
+  endereco              endereco                @relation(fields: [id_endereco], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profissional_endereco1")
+  especialidade         especialidade           @relation(fields: [id_especialidade], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profissional_especialidade1")
+  genero                genero                  @relation(fields: [id_genero], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profissional_genero1")
+  raca                  raca                    @relation(fields: [id_raca], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profissional_raca1")
+  time_has_profissional time_has_profissional[]
+
+  @@index([id_endereco], map: "fk_profissional_endereco1_idx")
+  @@index([id_especialidade], map: "fk_profissional_especialidade1_idx")
+  @@index([id_genero], map: "fk_profissional_genero1_idx")
+  @@index([id_raca], map: "fk_profissional_raca1_idx")
+}
+
+model projeto {
+  id                  Int      @id @default(autoincrement())
+  nome                String?  @db.VarChar(45)
+  id_cliente          String   @db.VarChar(56)
+  id_time_responsavel Int
+  data_inicio         DateTime @db.Date
+  data_fim            DateTime @db.Date
+  valor               Float
+  cliente             cliente  @relation(fields: [id_cliente], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_projeto_cliente1")
+  time                time     @relation(fields: [id_time_responsavel], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_projeto_time1")
+
+  @@index([id_cliente], map: "fk_projeto_cliente1_idx")
+  @@index([id_time_responsavel], map: "fk_projeto_time1_idx")
+}
+
+model raca {
+  id            Int            @id @default(autoincrement())
+  identificacao String         @db.VarChar(45)
+  cliente       cliente[]
+  profissional  profissional[]
+}
+
+model time {
+  id                    Int                     @id @default(autoincrement())
+  nome                  String                  @db.VarChar(45)
+  projeto               projeto[]
+  time_has_profissional time_has_profissional[]
+}
+
+model time_has_profissional {
+  id_time         Int
+  id_profissional String       @db.VarChar(56)
+  profissional    profissional @relation(fields: [id_profissional], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_time_has_profissional_profissional1")
+  time            time         @relation(fields: [id_time], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_time_has_profissional_time1")
+
+  @@id([id_time, id_profissional])
+  @@index([id_profissional], map: "fk_time_has_profissional_profissional1_idx")
+  @@index([id_time], map: "fk_time_has_profissional_time1_idx")
+}
+
+model tipo_logradouro {
+  sigla      String       @id @db.VarChar(10)
+  nome       String       @db.VarChar(45)
+  logradouro logradouro[]
+}
+
+model unidade_federacao {
+  sigla  String   @id @db.VarChar(10)
+  nome   String   @db.VarChar(45)
+  cidade cidade[]
+}

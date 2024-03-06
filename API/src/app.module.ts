@@ -20,7 +20,6 @@ const credentials = require('../firebase.credentials.json');
 				// explicitConnect: true,
 				prismaOptions: {
 					log: ['query', 'info', 'warn', 'error'],
-					rejectOnNotFound: true,
 				},
 			},
 		}),

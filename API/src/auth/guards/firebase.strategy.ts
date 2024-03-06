@@ -20,17 +20,16 @@ export class FirebaseStrategy extends PassportStrategy(
 	}
 
 	async validate(payload: FirebaseUser): Promise<LoggedUser> {
-		console.log(payload);
-
-		const usuario = await this.prismaService.usuario.findUnique({
+		const usuario = await this.prismaService.profissional.findUnique({
 			where: { id: payload.uid },
 			select: {
 				id: true,
 				nome: true,
+				sobrenome: true,
 				email: true,
-				id_tipo_usuario: true,
 			},
 		});
+
 		return usuario;
 	}
 }
