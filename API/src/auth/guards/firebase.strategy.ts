@@ -30,6 +30,8 @@ export class FirebaseStrategy extends PassportStrategy(
 			},
 		});
 
+		console.log(usuario);
+
 		return usuario;
 	}
 }
