@@ -33,10 +33,6 @@ export class EnderecoProfissionalDto {
 
 export class CreateProfissionalDto {
 	@IsString()
-	@IsNotEmpty()
-	id: string;
-
-	@IsString()
 	@Length(0, 45)
 	@IsNotEmpty()
 	nome: string;

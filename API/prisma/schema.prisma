@@ -150,14 +150,14 @@ model time_has_profissional {
   @@index([id_time], map: "fk_time_has_profissional_time1_idx")
 }
 
-  model tipo_logradouro {
-    sigla      String       @id @db.VarChar(10)
-    nome       String       @db.VarChar(45)
-    logradouro logradouro[]
-  }
+model tipo_logradouro {
+  sigla      String       @id @db.VarChar(10)
+  nome       String       @db.VarChar(45)
+  logradouro logradouro[]
+}
 
-  model unidade_federacao {
-    sigla  String   @id @db.VarChar(10)
-    nome   String   @db.VarChar(45)
-    cidade cidade[]
-  }
+model unidade_federacao {
+  sigla  String   @id @db.VarChar(10)
+  nome   String   @db.VarChar(45)
+  cidade cidade[]
+}
