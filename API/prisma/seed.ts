@@ -2,16 +2,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-enum TipoLancamento {
-	RECEITA = 1,
-	DESPESA = 2,
-}
-
-enum TipoCusto {
-	F = 1,
-	V = 2,
-}
-
 async function generate_essentials() {
 	const ufs = await prisma.unidade_federacao.createMany({
 		data: [
