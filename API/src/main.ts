@@ -17,7 +17,7 @@ async function bootstrap() {
 	app.enableCors(CorsConfig);
 
 	const config = new DocumentBuilder()
-		.setTitle('API -Template')
+		.setTitle('API -Gerenciamento de Projetos')
 		.setDescription('')
 		.setVersion('1.0')
 		.build();

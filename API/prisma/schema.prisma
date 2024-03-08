@@ -24,7 +24,7 @@ model cidade {
 }
 
 model cliente {
-  id                   String    @id @db.VarChar(56)
+  id                   Int       @id @default(autoincrement())
   nome                 String    @db.VarChar(45)
   sobrenome            String    @db.VarChar(45)
   email                String    @db.VarChar(255)
@@ -86,7 +86,7 @@ model logradouro {
 }
 
 model profissional {
-  id                    String                  @id @db.VarChar(56)
+  id                    Int                     @id @default(autoincrement())
   nome                  String                  @db.VarChar(45)
   sobrenome             String                  @db.VarChar(45)
   email                 String                  @db.VarChar(255)
@@ -113,7 +113,7 @@ model profissional {
 model projeto {
   id                  Int      @id @default(autoincrement())
   nome                String?  @db.VarChar(45)
-  id_cliente          String   @db.VarChar(56)
+  id_cliente          Int
   id_time_responsavel Int
   data_inicio         DateTime @db.Date
   data_fim            DateTime @db.Date
@@ -141,7 +141,7 @@ model time {
 
 model time_has_profissional {
   id_time         Int
-  id_profissional String       @db.VarChar(56)
+  id_profissional Int
   profissional    profissional @relation(fields: [id_profissional], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_time_has_profissional_profissional1")
   time            time         @relation(fields: [id_time], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_time_has_profissional_time1")
 
