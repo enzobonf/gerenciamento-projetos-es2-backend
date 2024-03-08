@@ -8,6 +8,9 @@ import { identity } from 'rxjs';
 
 @Injectable()
 export class ProfissionalService {
+
+	
+
 	constructor(private readonly prismaService: PrismaService) {}
 
 	private default_include: Prisma.profissionalInclude = {
@@ -72,20 +75,33 @@ export class ProfissionalService {
 	async findOne(id: number) {
 
 		const profissionais: any[] = await  this.prismaService.profissional.findMany({
-			//include:this.default_include,
+			include:this.default_include,
 			where:{id}
 		});
 
-		//profissionais.forEach((x) => this.formatProfissional(x));
+		profissionais.forEach((x) => this.formatProfissional(x));
 		
-		return profissionais;
+		return profissionais[0];
 	}
 
 	update(id: number, updateProfissionalDto: UpdateProfissionalDto) {
-		return `This action updates a #${id} profissional`;
+		return this.prismaService.profissional.update({
+			where: { id },
+			data: updateProfissionalDto,
+		  });
+		
 	}
 
-	remove(id: number) {
-		return `This action removes a #${id} profissional`;
+	async remove(id: number) {
+		await this.prismaService.$transaction([
+			this.prismaService.time_has_profissional.deleteMany({
+				where: {id_profissional: id}
+			}),
+			this.prismaService.profissional.delete({
+				where:{id}
+			})
+
+		]);
+
 	}
 }
