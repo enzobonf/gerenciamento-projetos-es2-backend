@@ -5,12 +5,8 @@ import { PrismaService } from 'nestjs-prisma';
 import { Prisma } from '@prisma/client';
 import { identity } from 'rxjs';
 
-
 @Injectable()
 export class ProfissionalService {
-
-	
-
 	constructor(private readonly prismaService: PrismaService) {}
 
 	private default_include: Prisma.profissionalInclude = {
@@ -29,10 +25,9 @@ export class ProfissionalService {
 				},
 			},
 		},
-		genero:true,
-		raca:true,
-		especialidade:true
-			
+		genero: true,
+		raca: true,
+		especialidade: true,
 	};
 
 	create(createProfissionalDto: CreateProfissionalDto) {
@@ -56,52 +51,45 @@ export class ProfissionalService {
 				sigla_uf: cidade.unidade_federacao.sigla,
 				cep: endereco.cep,
 			};
-			
-			profissional.email = profissional.email;
-			profissional.raca = raca.identificacao;
-			profissional.genero = genero.identificacao;
-			profissional.especialidade = especialidade.nome;
+
+		profissional.email = profissional.email;
+		profissional.raca = raca.identificacao;
+		profissional.genero = genero.identificacao;
+		profissional.especialidade = especialidade.nome;
+
+		return profissional;
 	}
 
 	async findAll() {
-		const profissionais: any[] = await this.prismaService.profissional.findMany({
-			include: this.default_include,
-		});
+		const profissionais: any[] =
+			await this.prismaService.profissional.findMany({
+				include: this.default_include,
+			});
 
 		profissionais.forEach((x) => this.formatProfissional(x));
 		return { profissionais };
 	}
 
 	async findOne(id: number) {
+		const profissional: any =
+			await this.prismaService.profissional.findUnique({
+				include: this.default_include,
+				where: { id },
+			});
 
-		const profissionais: any[] = await  this.prismaService.profissional.findMany({
-			include:this.default_include,
-			where:{id}
-		});
-
-		profissionais.forEach((x) => this.formatProfissional(x));
-		
-		return profissionais[0];
+		return this.formatProfissional(profissional);
 	}
 
 	update(id: number, updateProfissionalDto: UpdateProfissionalDto) {
 		return this.prismaService.profissional.update({
 			where: { id },
 			data: updateProfissionalDto,
-		  });
-		
+		});
 	}
 
 	async remove(id: number) {
-		await this.prismaService.$transaction([
-			this.prismaService.time_has_profissional.deleteMany({
-				where: {id_profissional: id}
-			}),
-			this.prismaService.profissional.delete({
-				where:{id}
-			})
-
-		]);
-
+		return this.prismaService.profissional.delete({
+			where: { id },
+		});
 	}
 }
