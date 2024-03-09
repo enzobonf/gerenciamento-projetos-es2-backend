@@ -10,6 +10,7 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { ProfissionalModule } from './profissional/profissional.module';
 import { EnderecoModule } from './endereco/endereco.module';
 import { TimeModule } from './time/time.module';
+import { RacaModule } from './raca/raca.module';
 import { GeneroModule } from './genero/genero.module';
 import { EspecialidadeModule } from './especialidade/especialidade.module';
 import { ProjetoModule } from './projeto/projeto.module';
@@ -44,6 +45,7 @@ const credentials = require('../firebase.credentials.json');
 		ProfissionalModule,
 		EnderecoModule,
 		TimeModule,
+		RacaModule,
 		GeneroModule,
 		EspecialidadeModule,
 		ProjetoModule,
