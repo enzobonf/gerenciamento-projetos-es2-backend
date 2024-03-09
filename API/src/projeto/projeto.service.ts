@@ -5,59 +5,57 @@ import { PrismaService } from 'nestjs-prisma';
 import { Prisma } from '@prisma/client';
 @Injectable()
 export class ProjetoService {
-  constructor(private readonly prismaService: PrismaService) {}
+	constructor(private readonly prismaService: PrismaService) {}
 
-  create(createProjetoDto: CreateProjetoDto) {
-    return  this.prismaService.projeto.create({
+	create(createProjetoDto: CreateProjetoDto) {
+		return this.prismaService.projeto.create({
 			data: createProjetoDto,
-		});;
-  }
+		});
+	}
 
-  private formatProjeto(projeto: any) {
+	private formatProjeto(projeto: any) {
 		const { cliente } = projeto;
-    projeto.cliente = {
-      id: cliente.id_cliente,
-      nome: cliente.nome,
-      sobrenome: cliente.sobrenome,
-
-    }
+		projeto.cliente = {
+			id: cliente.id_cliente,
+			nome: cliente.nome,
+			sobrenome: cliente.sobrenome,
+		};
 		return projeto;
 	}
 
-  private default_include: Prisma.projetoInclude = {
-    cliente:true,
-    time:true,
-  }
+	private default_include: Prisma.projetoInclude = {
+		cliente: true,
+		time: true,
+	};
 
-  async findAll() {
-    const projetos: any[] =
-			await this.prismaService.projeto.findMany({
-      include:this.default_include,
-    });
+	async findAll() {
+		const projetos: any[] = await this.prismaService.projeto.findMany({
+			include: this.default_include,
+		});
 
-    projetos.forEach((x) => this.formatProjeto(x));
+		projetos.forEach((x) => this.formatProjeto(x));
 		return { projetos };
-  }
+	}
 
-  async findOne(id: number) {
-    const projeto:any =await  this.prismaService.projeto.findUnique({
-      include:this.default_include,
-      where:{id},
-    });
+	async findOne(id: number) {
+		const projeto: any = await this.prismaService.projeto.findUnique({
+			include: this.default_include,
+			where: { id },
+		});
 
-    return this.formatProjeto(projeto);
-  }
+		return this.formatProjeto(projeto);
+	}
 
-  update(id: number, updateProjetoDto: UpdateProjetoDto) {
-    return this.prismaService.projeto.update({
+	update(id: number, updateProjetoDto: UpdateProjetoDto) {
+		return this.prismaService.projeto.update({
 			where: { id },
 			data: updateProjetoDto,
 		});
-  }
+	}
 
-  remove(id: number) {
-    return this.prismaService.projeto.delete({
+	remove(id: number) {
+		return this.prismaService.projeto.delete({
 			where: { id },
 		});
-  }
+	}
 }

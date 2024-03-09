@@ -6,24 +6,23 @@ import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class RacaService {
+	constructor(private readonly prismaService: PrismaService) {}
 
-  constructor(private readonly prismaService: PrismaService) {}
-
-  /*create(createRacaDto: CreateRacaDto) {
+	/*create(createRacaDto: CreateRacaDto) {
     return 'This action adds a new raca';
   }*/
 
-  findAll() {
-    return this.prismaService.raca.findMany();
-  }
+	findAll() {
+		return this.prismaService.raca.findMany();
+	}
 
-  findOne(id: number) {
-    return this.prismaService.raca.findUnique({
-      where:{id}
-    });
-  }
+	findOne(id: number) {
+		return this.prismaService.raca.findUnique({
+			where: { id },
+		});
+	}
 
- /* update(id: number, updateRacaDto: UpdateRacaDto) {
+	/* update(id: number, updateRacaDto: UpdateRacaDto) {
     return `This action updates a #${id} raca`;
   }
 

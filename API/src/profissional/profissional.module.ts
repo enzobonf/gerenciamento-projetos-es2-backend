@@ -3,7 +3,7 @@ import { ProfissionalService } from './profissional.service';
 import { ProfissionalController } from './profissional.controller';
 
 @Module({
-  controllers: [ProfissionalController],
-  providers: [ProfissionalService]
+	controllers: [ProfissionalController],
+	providers: [ProfissionalService],
 })
 export class ProfissionalModule {}

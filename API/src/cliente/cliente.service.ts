@@ -6,41 +6,39 @@ import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ClienteService {
+	constructor(private readonly prismaService: PrismaService) {}
 
-  constructor(private readonly prismaService: PrismaService) { }
+	private default_include: Prisma.clienteInclude = {
+		genero: true,
+		raca: true,
+	};
 
-  private default_include: Prisma.clienteInclude = {
-    genero: true,
-    raca: true,
-  };
-
-  private formatCliente(cliente) {
-		const { raca, genero} = cliente;
-    cliente.raca = raca.identificacao;
-    cliente.genero = genero.identificacao;
+	private formatCliente(cliente) {
+		const { raca, genero } = cliente;
+		cliente.raca = raca.identificacao;
+		cliente.genero = genero.identificacao;
 
 		return cliente;
 	}
 
-  async findAll() {
-    
-    const clientes: any[] =	await this.prismaService.cliente.findMany({
-				include: this.default_include,
-			});
+	async findAll() {
+		const clientes: any[] = await this.prismaService.cliente.findMany({
+			include: this.default_include,
+		});
 
-      clientes.forEach((x) => this.formatCliente(x));
+		clientes.forEach((x) => this.formatCliente(x));
 		return { clientes };
-  }
+	}
 
-  async findOne(id: number) {
-    const cliente:any =await  this.prismaService.cliente.findUnique({
-      include:this.default_include,
-      where:{id},
-    });
+	async findOne(id: number) {
+		const cliente: any = await this.prismaService.cliente.findUnique({
+			include: this.default_include,
+			where: { id },
+		});
 
-    return this.formatCliente(cliente);
-  }
-  /*
+		return this.formatCliente(cliente);
+	}
+	/*
   create(createClienteDto: CreateClienteDto) {
     return 'This action adds a new cliente';
   }

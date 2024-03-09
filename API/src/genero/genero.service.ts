@@ -5,22 +5,22 @@ import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class GeneroService {
-  constructor(private readonly prismaService: PrismaService) {}
-  /*
+	constructor(private readonly prismaService: PrismaService) {}
+	/*
   create(createGeneroDto: CreateGeneroDto) {
     return 'This action adds a new genero';
   }*/
 
-  findAll() {
-    return this.prismaService.genero.findMany();
-  }
+	findAll() {
+		return this.prismaService.genero.findMany();
+	}
 
-  findOne(id: number) {
-    return this.prismaService.genero.findUnique({
-      where:{id}
-    });
-  }
-/*
+	findOne(id: number) {
+		return this.prismaService.genero.findUnique({
+			where: { id },
+		});
+	}
+	/*
   update(id: number, updateGeneroDto: UpdateGeneroDto) {
     return `This action updates a #${id} genero`;
   }
