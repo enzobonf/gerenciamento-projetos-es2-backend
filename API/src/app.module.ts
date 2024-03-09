@@ -11,6 +11,9 @@ import { ProfissionalModule } from './profissional/profissional.module';
 import { EnderecoModule } from './endereco/endereco.module';
 import { TimeModule } from './time/time.module';
 import { RacaModule } from './raca/raca.module';
+import { GeneroModule } from './genero/genero.module';
+import { EspecialidadeModule } from './especialidade/especialidade.module';
+import { ProjetoModule } from './projeto/projeto.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const credentials = require('../firebase.credentials.json');
 
@@ -43,6 +46,9 @@ const credentials = require('../firebase.credentials.json');
 		EnderecoModule,
 		TimeModule,
 		RacaModule,
+		GeneroModule,
+		EspecialidadeModule,
+		ProjetoModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
