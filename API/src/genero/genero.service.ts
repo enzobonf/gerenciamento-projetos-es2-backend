@@ -11,8 +11,9 @@ export class GeneroService {
     return 'This action adds a new genero';
   }*/
 
-	findAll() {
-		return this.prismaService.genero.findMany();
+	async findAll() {
+		const generos = await this.prismaService.genero.findMany();
+		return { generos };
 	}
 
 	findOne(id: number) {

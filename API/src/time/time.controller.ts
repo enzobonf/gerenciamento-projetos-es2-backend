@@ -9,12 +9,17 @@ import {
 	UsePipes,
 	ValidationPipe,
 	Put,
+	UseGuards,
 } from '@nestjs/common';
 import { TimeService } from './time.service';
 import { CreateTimeDto } from './dto/create-time.dto';
 import { UpdateTimeDto } from './dto/update-time.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
-@Controller('times')
+@ApiTags('Time')
+@Controller('time')
+//@UseGuards(AuthGuard())
 @UsePipes(ValidationPipe)
 export class TimeController {
 	constructor(private readonly timeService: TimeService) {}

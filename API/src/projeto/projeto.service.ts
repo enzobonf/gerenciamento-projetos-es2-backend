@@ -3,11 +3,15 @@ import { CreateProjetoDto } from './dto/create-projeto.dto';
 import { UpdateProjetoDto } from './dto/update-projeto.dto';
 import { PrismaService } from 'nestjs-prisma';
 import { Prisma } from '@prisma/client';
+import formatMoney from 'src/utils/formatMoney';
 @Injectable()
 export class ProjetoService {
 	constructor(private readonly prismaService: PrismaService) {}
 
 	create(createProjetoDto: CreateProjetoDto) {
+		createProjetoDto.data_fim = new Date(createProjetoDto.data_fim);
+		createProjetoDto.data_inicio = new Date(createProjetoDto.data_inicio);
+
 		return this.prismaService.projeto.create({
 			data: createProjetoDto,
 		});
@@ -20,6 +24,7 @@ export class ProjetoService {
 			nome: cliente.nome,
 			sobrenome: cliente.sobrenome,
 		};
+		projeto.valor = formatMoney(projeto.valor);
 		return projeto;
 	}
 
