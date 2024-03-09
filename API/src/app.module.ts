@@ -10,6 +10,7 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { ProfissionalModule } from './profissional/profissional.module';
 import { EnderecoModule } from './endereco/endereco.module';
 import { TimeModule } from './time/time.module';
+import { RacaModule } from './raca/raca.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const credentials = require('../firebase.credentials.json');
 
@@ -41,6 +42,7 @@ const credentials = require('../firebase.credentials.json');
 		ProfissionalModule,
 		EnderecoModule,
 		TimeModule,
+		RacaModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
