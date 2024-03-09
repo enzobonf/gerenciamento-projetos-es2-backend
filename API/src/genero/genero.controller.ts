@@ -6,12 +6,17 @@ import {
 	Patch,
 	Param,
 	Delete,
+	UseGuards,
 } from '@nestjs/common';
 import { GeneroService } from './genero.service';
 import { CreateGeneroDto } from './dto/create-genero.dto';
 import { UpdateGeneroDto } from './dto/update-genero.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
+@ApiTags('Gênero')
 @Controller('genero')
+//@UseGuards(AuthGuard())
 export class GeneroController {
 	constructor(private readonly generoService: GeneroService) {}
 	/*

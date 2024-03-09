@@ -73,7 +73,8 @@ export class TimeService {
 			include: this.default_include,
 		});
 
-		return times.map((time) => this.formatTime(time));
+		times.forEach((time) => this.formatTime(time));
+		return { times };
 	}
 
 	async findOne(id: number) {

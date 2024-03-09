@@ -6,12 +6,17 @@ import {
 	Patch,
 	Param,
 	Delete,
+	UseGuards,
 } from '@nestjs/common';
 import { RacaService } from './raca.service';
 import { CreateRacaDto } from './dto/create-raca.dto';
 import { UpdateRacaDto } from './dto/update-raca.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
+@ApiTags('Raça')
 @Controller('raca')
+//@UseGuards(AuthGuard())
 export class RacaController {
 	constructor(private readonly racaService: RacaService) {}
 

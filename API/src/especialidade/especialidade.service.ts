@@ -11,8 +11,11 @@ export class EspecialidadeService {
     return 'This action adds a new especialidade';
   }*/
 
-	findAll() {
-		return this.prismaService.especialidade.findMany();
+	async findAll() {
+		const especialidades =
+			await this.prismaService.especialidade.findMany();
+
+		return { especialidades };
 	}
 
 	findOne(id: number) {

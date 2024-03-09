@@ -6,12 +6,20 @@ import {
 	Patch,
 	Param,
 	Delete,
+	UseGuards,
+	UsePipes,
+	ValidationPipe,
 } from '@nestjs/common';
 import { ProjetoService } from './projeto.service';
 import { CreateProjetoDto } from './dto/create-projeto.dto';
 import { UpdateProjetoDto } from './dto/update-projeto.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
+@ApiTags('Projeto')
 @Controller('projeto')
+//@UseGuards(AuthGuard())
+@UsePipes(ValidationPipe)
 export class ProjetoController {
 	constructor(private readonly projetoService: ProjetoService) {}
 

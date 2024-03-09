@@ -12,8 +12,9 @@ export class RacaService {
     return 'This action adds a new raca';
   }*/
 
-	findAll() {
-		return this.prismaService.raca.findMany();
+	async findAll() {
+		const racas = await this.prismaService.raca.findMany();
+		return { racas };
 	}
 
 	findOne(id: number) {

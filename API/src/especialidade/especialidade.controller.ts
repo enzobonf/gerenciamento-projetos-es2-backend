@@ -6,12 +6,17 @@ import {
 	Patch,
 	Param,
 	Delete,
+	UseGuards,
 } from '@nestjs/common';
 import { EspecialidadeService } from './especialidade.service';
 import { CreateEspecialidadeDto } from './dto/create-especialidade.dto';
 import { UpdateEspecialidadeDto } from './dto/update-especialidade.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
+@ApiTags('Especialidade')
 @Controller('especialidade')
+//@UseGuards(AuthGuard())
 export class EspecialidadeController {
 	constructor(private readonly especialidadeService: EspecialidadeService) {}
 	/*
