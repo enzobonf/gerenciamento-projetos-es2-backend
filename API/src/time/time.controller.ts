@@ -39,7 +39,7 @@ export class TimeController {
 		return this.timeService.findOne(+id);
 	}
 
-	@Put(':id')
+	@Patch(':id')
 	update(@Param('id') id: string, @Body() updateTimeDto: UpdateTimeDto) {
 		return this.timeService.update(+id, updateTimeDto);
 	}

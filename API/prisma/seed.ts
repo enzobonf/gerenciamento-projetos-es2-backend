@@ -405,17 +405,6 @@ async function generate_essentials() {
 			},
 		],
 	});
-
-	await prisma.endereco.createMany({
-		data: [
-			{
-				cep: '85851200',
-				id_bairro: 2,
-				id_cidade: 2,
-				id_logradouro: 2,
-			},
-		],
-	});
 }
 
 async function main() {
