@@ -59,6 +59,9 @@ export class TimeService {
 							in: createTimeDto.ids_profissionais,
 						},
 					},
+					include: {
+						especialidade: true,
+					},
 				});
 			}
 
