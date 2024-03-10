@@ -52,11 +52,6 @@ export class ProfissionalService {
 				cep: endereco.cep,
 			};
 
-		profissional.email = profissional.email;
-		profissional.raca = raca.identificacao;
-		profissional.genero = genero.identificacao;
-		profissional.especialidade = especialidade.nome;
-
 		return profissional;
 	}
 
@@ -80,11 +75,14 @@ export class ProfissionalService {
 		return this.formatProfissional(profissional);
 	}
 
-	update(id: number, updateProfissionalDto: UpdateProfissionalDto) {
-		return this.prismaService.profissional.update({
+	async update(id: number, updateProfissionalDto: UpdateProfissionalDto) {
+		const profissional = await this.prismaService.profissional.update({
 			where: { id },
 			data: updateProfissionalDto,
+			include: this.default_include,
 		});
+
+		return this.formatProfissional(profissional);
 	}
 
 	async remove(id: number) {

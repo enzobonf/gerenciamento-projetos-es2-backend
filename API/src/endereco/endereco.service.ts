@@ -31,6 +31,7 @@ export class EnderecoService {
 		});
 
 		return {
+			id: endereco.id,
 			cep: endereco.cep,
 			tipo_logradouro: endereco.logradouro.tipo_logradouro.nome,
 			logradouro: endereco.logradouro.nome,

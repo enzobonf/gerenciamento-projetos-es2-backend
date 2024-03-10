@@ -4,7 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Endereco')
-@Controller('enderecos')
+@Controller('endereco')
 //@UseGuards(AuthGuard())
 export class EnderecoController {
 	constructor(private readonly enderecoService: EnderecoService) {}
