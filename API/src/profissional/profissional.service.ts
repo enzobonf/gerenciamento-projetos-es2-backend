@@ -30,10 +30,13 @@ export class ProfissionalService {
 		especialidade: true,
 	};
 
-	create(createProfissionalDto: CreateProfissionalDto) {
-		return this.prismaService.profissional.create({
+	async create(createProfissionalDto: CreateProfissionalDto) {
+		const profissional = await this.prismaService.profissional.create({
 			data: createProfissionalDto,
+			include: this.default_include,
 		});
+
+		return this.formatProfissional(profissional);
 	}
 
 	private formatProfissional(profissional: any) {
