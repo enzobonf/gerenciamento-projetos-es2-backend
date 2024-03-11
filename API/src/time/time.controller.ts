@@ -19,7 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Time')
 @Controller('time')
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 @UsePipes(ValidationPipe)
 export class TimeController {
 	constructor(private readonly timeService: TimeService) {}

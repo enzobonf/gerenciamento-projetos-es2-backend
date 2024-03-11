@@ -16,7 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Gênero')
 @Controller('genero')
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 export class GeneroController {
 	constructor(private readonly generoService: GeneroService) {}
 	/*

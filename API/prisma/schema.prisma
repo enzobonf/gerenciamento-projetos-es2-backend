@@ -112,7 +112,8 @@ model profissional {
 
 model projeto {
   id                  Int      @id @default(autoincrement())
-  nome                String?  @db.VarChar(45)
+  nome                String   @db.VarChar(45)
+  objetivo            String   @db.VarChar(100)
   id_cliente          Int
   id_time_responsavel Int
   data_inicio         DateTime @db.Date
