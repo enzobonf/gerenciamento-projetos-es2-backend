@@ -460,6 +460,15 @@ async function generate_essentials() {
 			},
 		],
 	});
+
+	await prisma.endereco.create({
+		data: {
+			cep: '85851200',
+			id_logradouro: 24,
+			id_bairro: 2,
+			id_cidade: 2,
+		},
+	});
 }
 
 async function main() {

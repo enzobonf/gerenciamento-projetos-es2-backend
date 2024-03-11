@@ -1,32 +1,36 @@
-version: '3'
+version: '3.8'
 services:
-    sgp-es2-db:
+    db:
+        container_name: db
         image: mysql:latest
-        container_name: sgp-es2-db
-        env_file: ./.env.production
+        env_file: .env.production
         restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=$MYSQL_PASSWORD
         ports:
-            - '3306:3306'
+            - 3306:3306
         volumes:
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
             - database-volume:/var/lib/mysql
     sgp-es2-api:
-        container_name: sgp-es2-api
-        depends_on:
-            - sgp-es2-db
-        build: ./
-        restart: unless-stopped
-        env_file: ./.env.production
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: nest-api
+        restart: always
         ports:
             - 3000:3000
-        stdin_open: true
-        tty: true
+        depends_on:
+            db:
+                condition: service_started
+        env_file:
+            - .env.production
         volumes:
             - ./:/app
             - /app/node_modules
             - ./firebase.credentials.json:/app/../firebase.credentials.json
-        networks:
-            - default
+            - ./package.json:/app/../package.json
+        links:
+            - db
 volumes:
     database-volume:
