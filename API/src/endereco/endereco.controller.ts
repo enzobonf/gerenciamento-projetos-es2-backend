@@ -1,7 +1,11 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards, UsePipes } from '@nestjs/common';
 import { EnderecoService } from './endereco.service';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
-@Controller('enderecos')
+@ApiTags('Endereco')
+@Controller('endereco')
+@UseGuards(AuthGuard())
 export class EnderecoController {
 	constructor(private readonly enderecoService: EnderecoService) {}
 

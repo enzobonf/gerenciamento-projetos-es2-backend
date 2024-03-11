@@ -406,13 +406,57 @@ async function generate_essentials() {
 		],
 	});
 
-	await prisma.endereco.createMany({
+	// criar especialidades, como dba, designer, desenvolvedor
+	await prisma.especialidade.createMany({
 		data: [
 			{
-				cep: '85851200',
-				id_bairro: 2,
-				id_cidade: 2,
-				id_logradouro: 2,
+				nome: 'Desenvolvedor',
+			},
+			{
+				nome: 'Analista',
+			},
+			{
+				nome: 'DBA',
+			},
+			{
+				nome: 'Designer',
+			},
+		],
+	});
+
+	await prisma.genero.createMany({
+		data: [
+			{
+				identificacao: 'Masculino',
+			},
+			{
+				identificacao: 'Feminino',
+			},
+			{
+				identificacao: 'Não-binário',
+			},
+			{
+				identificacao: 'Outro',
+			},
+		],
+	});
+
+	await prisma.raca.createMany({
+		data: [
+			{
+				identificacao: 'Branca',
+			},
+			{
+				identificacao: 'Preta',
+			},
+			{
+				identificacao: 'Parda',
+			},
+			{
+				identificacao: 'Indígena',
+			},
+			{
+				identificacao: 'Amarela',
 			},
 		],
 	});
