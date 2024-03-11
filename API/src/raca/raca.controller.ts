@@ -16,7 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Raça')
 @Controller('raca')
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 export class RacaController {
 	constructor(private readonly racaService: RacaService) {}
 

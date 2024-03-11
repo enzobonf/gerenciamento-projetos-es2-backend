@@ -5,7 +5,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Endereco')
 @Controller('endereco')
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 export class EnderecoController {
 	constructor(private readonly enderecoService: EnderecoService) {}
 

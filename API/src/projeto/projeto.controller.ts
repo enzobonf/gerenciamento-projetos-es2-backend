@@ -18,7 +18,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Projeto')
 @Controller('projeto')
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 @UsePipes(ValidationPipe)
 export class ProjetoController {
 	constructor(private readonly projetoService: ProjetoService) {}

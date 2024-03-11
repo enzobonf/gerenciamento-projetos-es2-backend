@@ -16,7 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Especialidade')
 @Controller('especialidade')
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 export class EspecialidadeController {
 	constructor(private readonly especialidadeService: EspecialidadeService) {}
 	/*
