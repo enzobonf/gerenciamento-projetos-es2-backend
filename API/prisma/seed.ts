@@ -461,13 +461,21 @@ async function generate_essentials() {
 		],
 	});
 
-	await prisma.endereco.create({
-		data: {
-			cep: '85851200',
-			id_logradouro: 24,
-			id_bairro: 2,
-			id_cidade: 2,
-		},
+	await prisma.endereco.createMany({
+		data: [
+			{
+				cep: '85851200',
+				id_logradouro: 24,
+				id_bairro: 2,
+				id_cidade: 2,
+			},
+			{
+				cep: '00000000',
+				id_logradouro: 25,
+				id_bairro: 5,
+				id_cidade: 2,
+			},
+		],
 	});
 }
 
