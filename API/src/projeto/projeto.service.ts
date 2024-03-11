@@ -24,7 +24,7 @@ export class ProjetoService {
 			nome: cliente.nome,
 			sobrenome: cliente.sobrenome,
 		};
-		projeto.valor = formatMoney(projeto.valor);
+		projeto.valor_str = formatMoney(projeto.valor);
 		return projeto;
 	}
 
