@@ -13,6 +13,11 @@ export class CreateProjetoDto {
 	@IsNotEmpty()
 	nome: string;
 
+	@IsString()
+	@Length(0, 100)
+	@IsNotEmpty()
+	objetivo: string;
+
 	@IsDateString()
 	@IsNotEmpty()
 	data_inicio: Date | string;
