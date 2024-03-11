@@ -4,6 +4,7 @@ import { UpdateProjetoDto } from './dto/update-projeto.dto';
 import { PrismaService } from 'nestjs-prisma';
 import { Prisma } from '@prisma/client';
 import formatMoney from 'src/utils/formatMoney';
+import formatDateToTimeZone from 'src/utils/formatDateToTimeZone';
 @Injectable()
 export class ProjetoService {
 	constructor(private readonly prismaService: PrismaService) {}
@@ -14,8 +15,15 @@ export class ProjetoService {
 	};
 
 	async create(createProjetoDto: CreateProjetoDto) {
-		createProjetoDto.data_fim = new Date(createProjetoDto.data_fim);
-		createProjetoDto.data_inicio = new Date(createProjetoDto.data_inicio);
+		createProjetoDto.data_fim = formatDateToTimeZone(
+			createProjetoDto.data_fim,
+			'America/Sao_Paulo',
+		);
+
+		createProjetoDto.data_inicio = formatDateToTimeZone(
+			createProjetoDto.data_inicio,
+			'America/Sao_Paulo',
+		);
 
 		const projeto = await this.prismaService.projeto.create({
 			data: createProjetoDto,
